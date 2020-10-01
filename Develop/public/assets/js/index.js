@@ -1,3 +1,29 @@
+
+// Dependencies
+// =============================================================
+var express = require("express");
+var path = require("path");
+
+
+// Sets up the Express App
+// =============================================================
+var app = express();
+var PORT = 6000;
+
+// Sets up the Express app to handle data parsing
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+
+
+
+
+
+
+
+
+
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
@@ -6,6 +32,10 @@ const $noteList = $(".list-container .list-group");
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
+
+
+
+
 
 // A function for getting all notes from the db
 const getNotes = () => {
@@ -31,6 +61,12 @@ const deleteNote = (id) => {
     method: "DELETE",
   });
 };
+
+
+
+
+
+
 
 // If there is an activeNote, display it, otherwise render empty inputs
 const renderActiveNote = () => {
@@ -149,3 +185,17 @@ $noteText.on("keyup", handleRenderSaveBtn);
 
 // Gets and renders the initial list of notes
 getAndRenderNotes();
+
+
+
+
+
+
+
+
+
+// Starts the server to begin listening
+// =============================================================
+app.listen(PORT, function() {
+  console.log("App listening on PORT " + PORT);
+});
