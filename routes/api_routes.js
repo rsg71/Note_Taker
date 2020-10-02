@@ -1,21 +1,20 @@
 //use fs module to read and write to and from the db.json file
 
-const fs = require("fs");
-const path = require("path");
+let notes = require ("../db/db.json")//move to api routes 
+var fs = require("fs");
+var path = require("path");
 
 
+const OUTPUT_DIR = path.resolve(__dirname, "public");
+const outputPath = path.join(OUTPUT_DIR, "notes.html");
+
+
+console.log()
 
 module.exports = function (app) {
 
-    fs.readFile("Develop/db/db.json", "utf8", function (err, data) {
-        if (err) throw err;
-
-        //making the contents of the file (the data) into json format
-        const notes = JSON.parse(data)
-        console.log(notes);
-
-
-
+    
+    
         //API get requests
         app.get("/api/notes", function(req,res) {  
             res.json(notes);
@@ -28,19 +27,44 @@ module.exports = function (app) {
         //allowing user to create a note; this posts the note
         app.post("/api/notes", function (req, res) {
             let newNote = req.body;
+            newNote.id = notes.length;
+            
 
-            console.log(newNote);
+            console.log(`the new note is : ${JSON.stringify(newNote)}`);
 
+
+
+            console.log("notes: "+ JSON.stringify(notes));
+            
             notes.push(newNote);
 
-            console.log("newNote added");
+            
+
+            console.log("==========");
+
+            console.log("notes after push " + JSON.stringify(notes));
+
+
+            res.json(notes);
             
         });
 
 
+        //writing a new note file
+
+        // fs.writeFile("../db/db.json", , function(err) {
+        //     if (err) throw err;
+
+        // })
+
         //notes with id
         app.get("/api/notes/:id", function (req, res) {
-            res.json(notes[req.params.id]);
+            console.log(req.params.id);
+
+
+            res.json(notes[req.params.id]); // might need the -1 for the index value**********
+
+
         });
 
 
@@ -48,7 +72,6 @@ module.exports = function (app) {
         // still working on this    
         // })
 
-    });
 
 
 
