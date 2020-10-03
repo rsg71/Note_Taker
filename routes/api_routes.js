@@ -1,6 +1,6 @@
 //use fs module to read and write to and from the db.json file
 
-let notes = require ("../db/db.json")//move to api routes 
+let notes = require ("../db/db.json")//moved to api routes 
 var fs = require("fs");
 var path = require("path");
 
@@ -28,7 +28,7 @@ module.exports = function (app) {
         app.post("/api/notes", function (req, res) {
             let newNote = req.body;
             newNote.id = notes.length;
-            
+
 
             console.log(`the new note is : ${JSON.stringify(newNote)}`);
 
@@ -62,21 +62,16 @@ module.exports = function (app) {
             console.log(req.params.id);
 
 
-            res.json(notes[req.params.id]); // might need the -1 for the index value**********
+            res.json(notes[req.params.id]);
 
 
         });
 
 
-        // app.delete("/api/notes/:id", function (req, res) {
-        // still working on this    
-        // })
-
-
-
-
+        app.delete("/api/notes/:id", function (req, res) {
+            notes.splice(req.params.id,1);
+            console.log("notes after splice: "+ JSON.stringify(notes))
+            console.log(`note ${req.params.id} was deleted`)
+            res.json(notes);
+        })
 }
-
-
-
-
