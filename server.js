@@ -7,7 +7,7 @@ var express = require("express");
 // // Sets up the Express server
 // =============================================================
 var app = express();
-var PORT = 7070;
+var PORT = process.env.PORT || 7070;
 
 
 
