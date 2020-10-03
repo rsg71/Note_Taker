@@ -20,8 +20,8 @@ app.use(express.static("public")); //************/
 
 // ================================================================================
 // ROUTER
-// The below points our server to a series of "route" files.
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
+// The below points the server to a series of "route" files.
+// These routes give the server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
 require("./routes/api_routes")(app);
@@ -29,7 +29,7 @@ require("./routes/html_routes")(app);
 
 // =============================================================================
 // LISTENER
-// The below code effectively "starts" our server
+// The below code effectively "starts" the server
 // =============================================================================
 app.listen(PORT, function() {
   console.log("App listening on PORT " + PORT);

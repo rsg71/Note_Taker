@@ -1,6 +1,4 @@
-//use fs module to read and write to and from the db.json file
-
-let notes = require ("../db/db.json")//moved to api routes 
+let notes = require ("../db/db.json")
 var fs = require("fs");
 var path = require("path");
 
@@ -13,61 +11,37 @@ console.log()
 
 module.exports = function (app) {
 
-    
-    
         //API get requests
         app.get("/api/notes", function(req,res) {  
             res.json(notes);
         })
 
-        
-
 
         //API post request
-        //allowing user to create a note; this posts the note
         app.post("/api/notes", function (req, res) {
             let newNote = req.body;
             newNote.id = notes.length;
 
-
             console.log(`the new note is : ${JSON.stringify(newNote)}`);
-
-
 
             console.log("notes: "+ JSON.stringify(notes));
             
-            notes.push(newNote);
-
-            
-
-            console.log("==========");
+            notes.push(newNote);            
 
             console.log("notes after push " + JSON.stringify(notes));
 
-
             res.json(notes);
-            
         });
 
-
-        //writing a new note file
-
-        // fs.writeFile("../db/db.json", , function(err) {
-        //     if (err) throw err;
-
-        // })
-
-        //notes with id
+        //get notes by ID
         app.get("/api/notes/:id", function (req, res) {
             console.log(req.params.id);
 
-
             res.json(notes[req.params.id]);
-
-
         });
 
 
+        //deletes the note
         app.delete("/api/notes/:id", function (req, res) {
             notes.splice(req.params.id,1);
             console.log("notes after splice: "+ JSON.stringify(notes))
